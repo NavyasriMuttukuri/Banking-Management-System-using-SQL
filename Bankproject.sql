@@ -160,18 +160,18 @@ INSERT  INTO BANK_INTEREST_RATE VALUES ( "SAVINGS" , 0.04 , '02' , '2020' ),
 select*from bank_interest_rate;
 
 
-#1) Print customer Id, customer name and average account_balance maintained by each customer for all  of his/her accounts in the bank.(8 Rows)
+#1) Print customer Id, customer name and average account_balance maintained by each customer for all  of his/her accounts in the bank.
 SELECT c.customer_id,c.customer_name,AVG(a.balance_amount) AS avg_balance
 FROM bank_customer c JOIN bank_account_details a
 ON c.customer_id = a.customer_id
 GROUP BY c.customer_id,c.customer_name;
 
 
-# 2) Print customer_id , account_number and balance_amount , condition that if balance_amount is nil then assign transaction_amount  for account_type = "Credit Card"(4 Rows)
+# 2) Print customer_id , account_number and balance_amount , condition that if balance_amount is nil then assign transaction_amount  for account_type = "Credit Card"
 SELECT customer_id,account_number,balance_amount
 FROM bank_account
 WHERE account_type = 'Credit Card';
-#Print account_number and balance_amount , transaction_amount,Transaction_Date from Bank_Account_Details and bank_account_transaction for all the transactions occurred during march,2020 and april, 2020(12 Rows)
+#Print account_number and balance_amount , transaction_amount,Transaction_Date from Bank_Account_Details and bank_account_transaction for all the transactions occurred during march,2020 and april, 2020
 SELECT
   d.account_number,
   d.balance_amount,
@@ -182,7 +182,7 @@ JOIN bank_account_transaction t
   ON d.account_number = t.account_number
 WHERE t.transaction_date BETWEEN '2020-03-01' AND '2020-04-30';
 
-# 4) Print all of the customer id, account number,  balance_amount, transaction_amount , Transaction_Date  from bank_customer, Bank_Account_Details and bank_account_transaction tables where excluding all of their transactions in march, 2020  month (22 Rows)
+# 4) Print all of the customer id, account number,  balance_amount, transaction_amount , Transaction_Date  from bank_customer, Bank_Account_Details and bank_account_transaction tables where excluding all of their transactions in march, 2020  month 
 SELECT
   c.customer_id,
   d.account_number,
@@ -196,7 +196,7 @@ LEFT JOIN bank_account_transaction t
   ON d.account_number = t.account_number
      AND t.transaction_date NOT BETWEEN '2020-03-01' AND '2020-03-31';
 
-# 5) Print only the customer id, account_number, balance_amount,transaction_amount ,transaction_date who did transactions during the first quarter. Do not display the accounts if they have not done any transactions in the first quarter.(16 Rows)
+# 5) Print only the customer id, account_number, balance_amount,transaction_amount ,transaction_date who did transactions during the first quarter. Do not display the accounts if they have not done any transactions in the first quarter.
 SELECT
   c.customer_id,
   d.account_number,
@@ -211,7 +211,7 @@ JOIN bank_account_transaction t
 WHERE t.transaction_date BETWEEN '2020-01-01' AND '2020-03-31';
 
 # Question 6:
-# 6) Print account_number, Event and Customer_message from BANK_CUSTOMER_MESSAGES and Bank_Account_Details to display an “Adhoc" Event for all customers who have  “SAVINGS" account_type account.(8 Rows)
+# 6) Print account_number, Event and Customer_message from BANK_CUSTOMER_MESSAGES and Bank_Account_Details to display an “Adhoc" Event for all customers who have  “SAVINGS" account_type account.
 SELECT
   d.account_number,
   m.Event,
@@ -221,7 +221,7 @@ JOIN BANK_CUSTOMER_MESSAGES m
   ON m.Event = 'Adhoc'
 WHERE d.account_type = 'SAVINGS';
 
-# 7) Print all Customer_id, Account_Number, Account_type, and display deducted balance_amount by  subtracting only negative transaction_amounts for Relationship_type ="P" ( P - means  Primary , S - means Secondary ) .(27 Rows)
+# 7) Print all Customer_id, Account_Number, Account_type, and display deducted balance_amount by  subtracting only negative transaction_amounts for Relationship_type ="P" ( P - means  Primary , S - means Secondary ) .
 SELECT
   d.customer_id,
   d.account_number,
@@ -246,7 +246,7 @@ SELECT
 FROM Bank_Account a
 LEFT JOIN bank_account_transaction t
   ON a.account_number = t.account_number;
-# b) Along with first step, Display other columns with corresponding linking account number, account types (15 Rows)
+# b) Along with first step, Display other columns with corresponding linking account number, account types 
 SELECT
   a.customer_id,
   a.account_number,
@@ -264,7 +264,7 @@ LEFT JOIN Bank_Account la
 # Question 9:
 # a) Display records of All Accounts , their Account_types, the transaction amount.
 # b) Along with first step, Display other columns with corresponding linking account number, account types
-# c) After retrieving all records of accounts and their linked accounts, display the   transaction amount of accounts appeared  in another column.(26 Rows)
+# c) After retrieving all records of accounts and their linked accounts, display the   transaction amount of accounts appeared  in another column.
 SELECT
   a.customer_id,
   a.account_number,
@@ -284,7 +284,7 @@ LEFT JOIN bank_account_transaction t2
   ON rd.linking_account_number = t2.account_number;
 
 # Question 10:
-# 10) Display all saving account holders have “Add-on Credit Cards" and “Credit cards" (3 Rows)
+# 10) Display all saving account holders have “Add-on Credit Cards" and “Credit cards" 
 SELECT DISTINCT
   c.customer_id,
   c.customer_name
@@ -306,7 +306,7 @@ AND EXISTS (
 
 # Question 11:
 # 11)  Display  records of “SAVINGS” account linked with “Credit cards" account_type and its credit
-# aggregate sum of transaction amount. (1 Row)
+# aggregate sum of transaction amount. 
 # Ref: Check linking relationship in bank_transaction_relationship_details.
         # Check transaction_amount in bank_account_transaction.
 SELECT
